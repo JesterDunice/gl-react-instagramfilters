@@ -1,8 +1,8 @@
-import GL from 'gl-react'
+import { Node, Shaders } from 'gl-react'
 import React from 'react'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   Toaster: {
     frag: `
       precision highp float;
@@ -73,21 +73,16 @@ const shaders = GL.Shaders.create({
   }
 });
 
-module.exports = GL.createComponent(
-  ({ children: inputImageTexture }) => {
-    return <GL.Node
-      shader={shaders.Toaster}
-      uniforms={{
-        inputImageTexture,
-        inputImageTexture2: resolveAssetSource(require('../resources/toasterMetal.png')),
-        inputImageTexture3: resolveAssetSource(require('../resources/toasterSoftLight.png')),
-        inputImageTexture4: resolveAssetSource(require('../resources/toasterCurves.png')),
-        inputImageTexture5: resolveAssetSource(require('../resources/toasterOverlayMapWarm.png')),
-        inputImageTexture6: resolveAssetSource(require('../resources/toasterColorShift.png'))
-      }}
-    />
-  },
-  {
-    displayName: "Toaster"
-  }
+module.exports = ({ children: inputImageTexture }) => (
+  <Node
+    shader={shaders.Toaster}
+    uniforms={{
+      inputImageTexture,
+      inputImageTexture2: resolveAssetSource(require('../resources/toasterMetal.png')),
+      inputImageTexture3: resolveAssetSource(require('../resources/toasterSoftLight.png')),
+      inputImageTexture4: resolveAssetSource(require('../resources/toasterCurves.png')),
+      inputImageTexture5: resolveAssetSource(require('../resources/toasterOverlayMapWarm.png')),
+      inputImageTexture6: resolveAssetSource(require('../resources/toasterColorShift.png'))
+    }}
+  />
 );

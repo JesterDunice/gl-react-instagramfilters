@@ -1,8 +1,8 @@
-import GL from 'gl-react'
+import { Node, Shaders } from 'gl-react'
 import React from 'react'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   Brannan: {
     frag: `
       precision highp float;
@@ -81,21 +81,16 @@ const shaders = GL.Shaders.create({
   }
 });
 
-module.exports = GL.createComponent(
-  ({ children: inputImageTexture }) => {
-    return <GL.Node
-      shader={shaders.Brannan}
-      uniforms={{
-        inputImageTexture,
-        inputImageTexture2: resolveAssetSource(require('../resources/brannanProcess.png')),
-        inputImageTexture3: resolveAssetSource(require('../resources/brannanBlowout.png')),
-        inputImageTexture4: resolveAssetSource(require('../resources/brannanContrast.png')),
-        inputImageTexture5: resolveAssetSource(require('../resources/brannanLuma.png')),
-        inputImageTexture6: resolveAssetSource(require('../resources/brannanScreen.png'))
-      }}
-    />
-  },
-  {
-    displayName: "Brannan"
-  }
+module.exports = ({ children: inputImageTexture }) => (
+  <Node
+    shader={shaders.Brannan}
+    uniforms={{
+      inputImageTexture,
+      inputImageTexture2: resolveAssetSource(require('../resources/brannanProcess.png')),
+      inputImageTexture3: resolveAssetSource(require('../resources/brannanBlowout.png')),
+      inputImageTexture4: resolveAssetSource(require('../resources/brannanContrast.png')),
+      inputImageTexture5: resolveAssetSource(require('../resources/brannanLuma.png')),
+      inputImageTexture6: resolveAssetSource(require('../resources/brannanScreen.png'))
+    }}
+  />
 );

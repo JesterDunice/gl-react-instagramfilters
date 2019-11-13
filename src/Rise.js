@@ -1,8 +1,8 @@
-import GL from 'gl-react'
+import { Node, Shaders } from 'gl-react'
 import React from 'react'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   Rise: {
     frag: `
       precision highp float;
@@ -32,19 +32,14 @@ const shaders = GL.Shaders.create({
   }
 });
 
-module.exports = GL.createComponent(
-  ({ children: inputImageTexture }) => {
-    return <GL.Node
-      shader={shaders.Rise}
-      uniforms={{
-        inputImageTexture,
-        inputImageTexture2: resolveAssetSource(require('../resources/blackboard1024.png')),
-        inputImageTexture3: resolveAssetSource(require('../resources/overlayMap.png')),
-        inputImageTexture4: resolveAssetSource(require('../resources/riseMap.png')),
-      }}
-    />
-  },
-  {
-    displayName: "Rise"
-  }
+module.exports = ({ children: inputImageTexture }) => (
+  <Node
+    shader={shaders.Rise}
+    uniforms={{
+      inputImageTexture,
+      inputImageTexture2: resolveAssetSource(require('../resources/blackboard1024.png')),
+      inputImageTexture3: resolveAssetSource(require('../resources/overlayMap.png')),
+      inputImageTexture4: resolveAssetSource(require('../resources/riseMap.png')),
+    }}
+  />
 );

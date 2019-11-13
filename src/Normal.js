@@ -1,8 +1,8 @@
-import GL from 'gl-react'
+import { Node, Shaders } from 'gl-react'
 import React from 'react'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   Normal: {
     frag: `
       precision highp float;
@@ -18,16 +18,11 @@ const shaders = GL.Shaders.create({
   }
 });
 
-module.exports = GL.createComponent(
-  ({ children: inputImageTexture }) => {
-    return <GL.Node
-      shader={shaders.Normal}
-      uniforms={{
-        inputImageTexture,
-      }}
-    />
-  },
-  {
-    displayName: "Normal"
-  }
+module.exports = ({ children: inputImageTexture }) => (
+  <Node
+    shader={shaders.Normal}
+    uniforms={{
+      inputImageTexture,
+    }}
+  />
 );

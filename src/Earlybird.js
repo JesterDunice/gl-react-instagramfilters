@@ -1,8 +1,8 @@
-import GL from 'gl-react'
+import { Node, Shaders } from 'gl-react'
 import React from 'react'
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
-const shaders = GL.Shaders.create({
+const shaders = Shaders.create({
   Earlybird: {
     frag: `
       precision highp float;
@@ -107,21 +107,16 @@ const shaders = GL.Shaders.create({
   }
 });
 
-module.exports = GL.createComponent(
-  ({ children: inputImageTexture }) => {
-    return <GL.Node
-      shader={shaders.Earlybird}
-      uniforms={{
-        inputImageTexture,
-        inputImageTexture2: resolveAssetSource(require('../resources/earlyBirdCurves.png')),
-        inputImageTexture3: resolveAssetSource(require('../resources/earlybirdOverlayMap.png')),
-        inputImageTexture4: resolveAssetSource(require('../resources/vignetteMap.png')),
-        inputImageTexture5: resolveAssetSource(require('../resources/earlybirdBlowout.png')),
-        inputImageTexture6: resolveAssetSource(require('../resources/earlybirdMap.png'))
-      }}
-    />
-  },
-  {
-    displayName: "Earlybird"
-  }
+module.exports = ({ children: inputImageTexture }) => (
+  <Node
+    shader={shaders.Earlybird}
+    uniforms={{
+      inputImageTexture,
+      inputImageTexture2: resolveAssetSource(require('../resources/earlyBirdCurves.png')),
+      inputImageTexture3: resolveAssetSource(require('../resources/earlybirdOverlayMap.png')),
+      inputImageTexture4: resolveAssetSource(require('../resources/vignetteMap.png')),
+      inputImageTexture5: resolveAssetSource(require('../resources/earlybirdBlowout.png')),
+      inputImageTexture6: resolveAssetSource(require('../resources/earlybirdMap.png'))
+    }}
+  />
 );
